@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>⚒️ Gimli's Forge — Dwarvish Kanban</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e0e0e0;
+            padding: 16px;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f39c12, #e74c3c, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 0.9em;
+            color: #a0a0a0;
+            font-weight: 300;
+        }
+
+        .updated {
+            font-size: 0.75em;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .board {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .board {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .column {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-height: 200px;
+        }
+
+        .column.blocked-column {
+            grid-column: 1 / -1;
+            border: 2px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .column.blocked-column.collapsed .column-content {
+            display: none;
+        }
+
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .column-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .column-count {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        /* Column theme colors */
+        .unmined-veins {
+            border-top: 3px solid #95a5a6;
+        }
+
+        .unmined-veins .column-title {
+            color: #95a5a6;
+        }
+
+        .hidden-gem {
+            border-top: 3px solid #9b59b6;
+        }
+
+        .hidden-gem .column-title {
+            color: #bb86fc;
+        }
+
+        .mining {
+            border-top: 3px solid #f39c12;
+        }
+
+        .mining .column-title {
+            color: #f39c12;
+        }
+
+        .polished-gem {
+            border-top: 3px solid #2ecc71;
+        }
+
+        .polished-gem .column-title {
+            color: #2ecc71;
+        }
+
+        .blocked-column {
+            border-top: 3px solid #e74c3c;
+        }
+
+        .blocked-column .column-title {
+            color: #e74c3c;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.09);
+            transform: translateY(-1px);
+        }
+
+        .card-domain {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            opacity: 0.8;
+        }
+
+        .card-title {
+            font-size: 0.95em;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .card-project {
+            font-size: 0.7em;
+            color: #888;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .priority {
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .priority.high {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+
+        .priority.medium {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+
+        .priority.low {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+
+        .phase {
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.7em;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+
+        .ordinal {
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.7em;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ccc;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        /* Domain colors */
+        .domain-alpha { border-left-color: #f39c12; }
+        .domain-research { border-left-color: #1abc9c; }
+        .domain-consulting { border-left-color: #3498db; }
+        .domain-appdev { border-left-color: #2ecc71; }
+        .domain-family { border-left-color: #e91e63; }
+        .domain-gimli { border-left-color: #9b59b6; }
+        .domain-other { border-left-color: #95a5a6; }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>⚒️ Gimli's Forge</h1>
+        <p class="subtitle">Dwarvish Kanban — "And my axe!"</p>
+        <p class="updated">Updated: 2026-02-06 11:50 PM EST</p>
+    </header>
+
+    <div class="board">
+        <!-- Unmined Veins Column (Queued) -->
+        <div class="column unmined-veins">
+            <div class="column-header">
+                <div class="column-title">
+                    ⛰️ Unmined Veins
+                    <span class="column-count">16</span>
+                </div>
+            </div>
+            <div class="column-content">
+                
+<div class="card domain-alpha">
+    <div class="card-domain">📈 Alpha</div>
+    <div class="card-title">Set up trading account (Alpaca / IBKR)</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 alpha/trading-account-setup</div>
+</div>
+
+<div class="card domain-alpha">
+    <div class="card-domain">📈 Alpha</div>
+    <div class="card-title">Configure Alpaca trading integration</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 alpha/alpaca-trading-setup</div>
+</div>
+
+<div class="card domain-research">
+    <div class="card-domain">🔬 Research</div>
+    <div class="card-title">GRAIL computational side projects</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 research/grail-computational-opportunities</div>
+</div>
+
+<div class="card domain-consulting">
+    <div class="card-domain">💼 Consulting</div>
+    <div class="card-title">Nathan's consulting setup (CellSage LLC)</div>
+    <div class="card-meta">
+        <span class="priority low">low</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 consulting/nathan-consulting</div>
+</div>
+
+<div class="card domain-consulting">
+    <div class="card-domain">💼 Consulting</div>
+    <div class="card-title">Karilyn ISO 13485 / QMS business</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        <span class="phase">Phase 1/5</span>
+        
+    </div>
+    
+    <div class="card-project">📂 consulting/karilyn-iso-13485-business</div>
+</div>
+
+<div class="card domain-appdev">
+    <div class="card-domain">🎮 AppDev</div>
+    <div class="card-title">Nucleosome positioning game</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        <span class="phase">Phase 1/4</span>
+        
+    </div>
+    
+    <div class="card-project">📂 appdev/nucleosome-game</div>
+</div>
+
+<div class="card domain-family">
+    <div class="card-domain">👨‍👩‍👧 Family</div>
+    <div class="card-title">Karilyn postpartum fitness plan</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 family/karilyn-postpartum-fitness</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Kimi K2 model testing</div>
+    <div class="card-meta">
+        <span class="priority high">high</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/kimi-k2-testing</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Recursive self-evaluation loop</div>
+    <div class="card-meta">
+        <span class="priority high">high</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Mission Control dashboard</div>
+    <div class="card-meta">
+        <span class="priority high">high</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Script-based heartbeat optimization</div>
+    <div class="card-meta">
+        <span class="priority high">high</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">LanceDB vector memory search</div>
+    <div class="card-meta">
+        <span class="priority high">high</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Gmail webhook monitoring</div>
+    <div class="card-meta">
+        <span class="priority high">high</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Command allowlist + sandbox mode</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Kimi K2.5 subagents</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">ElevenLabs Agents voice calls</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+            </div>
+        </div>
+
+        <!-- Hidden Gem Column -->
+        <div class="column hidden-gem">
+            <div class="column-header">
+                <div class="column-title">
+                    💎 Hidden Gem
+                    <span class="column-count">0</span>
+                </div>
+            </div>
+            <div class="column-content">
+                <div class="empty">Next tasks appear here</div>
+            </div>
+        </div>
+
+        <!-- Mining Column -->
+        <div class="column mining">
+            <div class="column-header">
+                <div class="column-title">
+                    ⛏️ Mining
+                    <span class="column-count">2</span>
+                </div>
+            </div>
+            <div class="column-content">
+                
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Kanban Redesign: End-to-end cascade testing</div>
+    <div class="card-meta">
+        <span class="priority high">high</span>
+        <span class="phase">Phase 2/4</span>
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/kanban-redesign</div>
+</div>
+
+<div class="card domain-gimli">
+    <div class="card-domain">🤖 Gimli</div>
+    <div class="card-title">Future Improvements: Track and implement enhancements</div>
+    <div class="card-meta">
+        <span class="priority med">med</span>
+        
+        
+    </div>
+    
+    <div class="card-project">📂 gimli/future-improvements</div>
+</div>
+
+            </div>
+        </div>
+
+        <!-- Polished Gem Column -->
+        <div class="column polished-gem">
+            <div class="column-header">
+                <div class="column-title">
+                    ✨ Polished Gem
+                    <span class="column-count">0</span>
+                </div>
+            </div>
+            <div class="column-content">
+                <div class="empty">Nothing polished yet</div>
+            </div>
+        </div>
+
+        <!-- The Way Is Barred Column (Blocked) -->
+        <div class="column blocked-column" id="blocked-column">
+            <div class="column-header" onclick="toggleBlocked()">
+                <div class="column-title">
+                    🚫 The Way Is Barred
+                    <span class="column-count">0</span>
+                </div>
+            </div>
+            <div class="column-content">
+                <div class="empty">The way is clear</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
+
+    <script>
+        // Toggle blocked column
+        function toggleBlocked() {
+            const col = document.getElementById('blocked-column');
+            col.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>

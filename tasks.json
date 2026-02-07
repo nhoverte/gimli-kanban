@@ -1,0 +1,190 @@
+{
+  "serverTasks": [
+    {
+      "id": "axe-033",
+      "column": "inprogress",
+      "category": "gimli",
+      "title": "Kanban Redesign: End-to-end cascade testing",
+      "priority": "high",
+      "addedBy": "gimli",
+      "project": "gimli/kanban-redesign",
+      "phase": "2/4",
+      "created": "2026-02-05T00:00:00Z"
+    },
+    {
+      "id": "axe-034",
+      "column": "inprogress",
+      "category": "gimli",
+      "title": "Future Improvements: Track and implement enhancements",
+      "priority": "med",
+      "addedBy": "nathan",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-035",
+      "column": "unmined-veins",
+      "category": "alpha",
+      "title": "Set up trading account (Alpaca / IBKR)",
+      "priority": "med",
+      "addedBy": "nathan",
+      "project": "alpha/trading-account-setup",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-036",
+      "column": "unmined-veins",
+      "category": "alpha",
+      "title": "Configure Alpaca trading integration",
+      "priority": "med",
+      "addedBy": "nathan",
+      "project": "alpha/alpaca-trading-setup",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-037",
+      "column": "unmined-veins",
+      "category": "research",
+      "title": "GRAIL computational side projects",
+      "priority": "med",
+      "addedBy": "nathan",
+      "project": "research/grail-computational-opportunities",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-038",
+      "column": "unmined-veins",
+      "category": "consulting",
+      "title": "Nathan's consulting setup (CellSage LLC)",
+      "priority": "low",
+      "addedBy": "nathan",
+      "project": "consulting/nathan-consulting",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-039",
+      "column": "unmined-veins",
+      "category": "consulting",
+      "title": "Karilyn ISO 13485 / QMS business",
+      "priority": "med",
+      "addedBy": "nathan",
+      "project": "consulting/karilyn-iso-13485-business",
+      "phase": "1/5",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-040",
+      "column": "unmined-veins",
+      "category": "appdev",
+      "title": "Nucleosome positioning game",
+      "priority": "med",
+      "addedBy": "nathan",
+      "project": "appdev/nucleosome-game",
+      "phase": "1/4",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-041",
+      "column": "unmined-veins",
+      "category": "family",
+      "title": "Karilyn postpartum fitness plan",
+      "priority": "med",
+      "addedBy": "nathan",
+      "project": "family/karilyn-postpartum-fitness",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-042",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "Kimi K2 model testing",
+      "priority": "high",
+      "addedBy": "nathan",
+      "project": "gimli/kimi-k2-testing",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-043",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "Recursive self-evaluation loop",
+      "priority": "high",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-044",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "Mission Control dashboard",
+      "priority": "high",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-045",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "Script-based heartbeat optimization",
+      "priority": "high",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-046",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "LanceDB vector memory search",
+      "priority": "high",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-047",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "Gmail webhook monitoring",
+      "priority": "high",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-048",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "Command allowlist + sandbox mode",
+      "priority": "med",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-049",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "Kimi K2.5 subagents",
+      "priority": "med",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    },
+    {
+      "id": "axe-050",
+      "column": "unmined-veins",
+      "category": "gimli",
+      "title": "ElevenLabs Agents voice calls",
+      "priority": "med",
+      "addedBy": "gimli",
+      "project": "gimli/future-improvements",
+      "created": "2026-02-06T02:30:00Z"
+    }
+  ],
+  "lastUpdated": "2026-02-06T02:40:00Z",
+  "archivedCount": 32,
+  "archiveNote": "Full rebuild: cleared stale MiniMax and old deployment tasks. Added all queued projects and future improvements."
+}
