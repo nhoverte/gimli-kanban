@@ -8,28 +8,28 @@
       "priority": "high",
       "addedBy": "gimli",
       "project": "gimli/kanban-redesign",
-      "phase": "2/4",
+      "phase": "4/4",
       "created": "2026-02-05T00:00:00Z"
     },
     {
-      "id": "axe-034",
+      "id": "axe-042",
       "column": "inprogress",
       "category": "gimli",
-      "title": "Future Improvements: Track and implement enhancements",
-      "priority": "med",
+      "title": "Kimi K2 model testing",
+      "priority": "high",
       "addedBy": "nathan",
-      "project": "gimli/future-improvements",
+      "project": "gimli/kimi-k2-testing",
       "created": "2026-02-06T02:30:00Z"
     },
     {
-      "id": "axe-035",
-      "column": "unmined-veins",
+      "id": "axe-052",
+      "column": "inprogress",
       "category": "alpha",
-      "title": "Set up trading account (Alpaca / IBKR)",
-      "priority": "med",
+      "title": "Alpha predictions tracking",
+      "priority": "high",
       "addedBy": "nathan",
-      "project": "alpha/trading-account-setup",
-      "created": "2026-02-06T02:30:00Z"
+      "project": "alpha/predictions",
+      "created": "2026-02-09T13:00:00Z"
     },
     {
       "id": "axe-036",
@@ -94,23 +94,13 @@
       "created": "2026-02-06T02:30:00Z"
     },
     {
-      "id": "axe-042",
-      "column": "unmined-veins",
-      "category": "gimli",
-      "title": "Kimi K2 model testing",
-      "priority": "high",
-      "addedBy": "nathan",
-      "project": "gimli/kimi-k2-testing",
-      "created": "2026-02-06T02:30:00Z"
-    },
-    {
       "id": "axe-043",
       "column": "unmined-veins",
       "category": "gimli",
       "title": "Recursive self-evaluation loop",
       "priority": "high",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/recursive-self-evaluation",
       "created": "2026-02-06T02:30:00Z"
     },
     {
@@ -120,7 +110,7 @@
       "title": "Mission Control dashboard",
       "priority": "high",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/mission-control-dashboard",
       "created": "2026-02-06T02:30:00Z"
     },
     {
@@ -130,7 +120,7 @@
       "title": "Script-based heartbeat optimization",
       "priority": "high",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/script-based-heartbeat",
       "created": "2026-02-06T02:30:00Z"
     },
     {
@@ -140,7 +130,7 @@
       "title": "LanceDB vector memory search",
       "priority": "high",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/lancedb-vector-memory",
       "created": "2026-02-06T02:30:00Z"
     },
     {
@@ -150,7 +140,7 @@
       "title": "Gmail webhook monitoring",
       "priority": "high",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/gmail-webhook",
       "created": "2026-02-06T02:30:00Z"
     },
     {
@@ -160,7 +150,7 @@
       "title": "Command allowlist + sandbox mode",
       "priority": "med",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/command-allowlist",
       "created": "2026-02-06T02:30:00Z"
     },
     {
@@ -170,7 +160,7 @@
       "title": "Kimi K2.5 subagents",
       "priority": "med",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/kimi-k2-subagents",
       "created": "2026-02-06T02:30:00Z"
     },
     {
@@ -180,11 +170,10 @@
       "title": "ElevenLabs Agents voice calls",
       "priority": "med",
       "addedBy": "gimli",
-      "project": "gimli/future-improvements",
+      "project": "gimli/elevenlabs-agents",
       "created": "2026-02-06T02:30:00Z"
     }
   ],
-  "lastUpdated": "2026-02-06T02:40:00Z",
-  "archivedCount": 32,
-  "archiveNote": "Full rebuild: cleared stale MiniMax and old deployment tasks. Added all queued projects and future improvements."
+  "archivedCount": 33,
+  "archiveNote": "2026-02-09: MIRM deep dive complete; future-improvements split into 8 projects; trading-account-setup archived"
 }
